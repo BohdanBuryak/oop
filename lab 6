@@ -1,0 +1,76 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+// Структура для зберігання інформації про підрозділ
+struct Department {
+    std::string name;
+    std::string division;
+    int staff;
+    int computers;
+};
+
+// Функція для порівняння двох підрозділів за назвою підрозділу
+bool compareByDepartmentName(const Department& a, const Department& b) {
+    return a.name < b.name;
+}
+
+// Функція для порівняння двох підрозділів за кількістю комп'ютерів
+bool compareByComputerCount(const Department& a, const Department& b) {
+    return a.computers < b.computers;
+}
+
+int main() {
+    std::vector<Department> departments;
+
+    int n; // Кількість підрозділів
+    std::cout << "Введіть кількість підрозділів: ";
+    std::cin >> n;
+
+    // Введення даних про підрозділи
+    for (int i = 0; i < n; ++i) {
+        Department dept;
+        std::cout << "Підрозділ #" << i + 1 << std::endl;
+        std::cout << "Назва підрозділу: ";
+        std::cin.ignore(); // Очищення буфера перед вводом рядка
+        std::getline(std::cin, dept.name);
+        std::cout << "Назва відділу: ";
+        std::getline(std::cin, dept.division);
+        std::cout << "Чисельність персоналу: ";
+        std::cin >> dept.staff;
+        std::cout << "Кількість комп'ютерів: ";
+        std::cin >> dept.computers;
+        departments.push_back(dept);
+    }
+
+    // Сортування за назвою підрозділу
+    std::sort(departments.begin(), departments.end(), compareByDepartmentName);
+
+    // Виведення інформації про всі підрозділи
+    std::cout << "\nІнформація про всі підрозділи:" << std::endl;
+    for (const Department& dept : departments) {
+        std::cout << "Назва підрозділу: " << dept.name << std::endl;
+        std::cout << "Назва відділу: " << dept.division << std::endl;
+        std::cout << "Чисельність персоналу: " << dept.staff << std::endl;
+        std::cout << "Кількість комп'ютерів: " << dept.computers << std::endl;
+        std::cout << "--------------------------" << std::endl;
+    }
+
+    // Сортування за кількістю комп'ютерів
+    std::sort(departments.begin(), departments.end(), compareByComputerCount);
+
+    // Виведення інформації про підрозділи з меншою кількістю комп'ютерів
+    std::cout << "\nІнформація про підрозділи з меншою кількістю комп'ютерів:" << std::endl;
+    for (const Department& dept : departments) {
+        if (dept.computers < 2 * dept.staff) {
+            std::cout << "Назва підрозділу: " << dept.name << std::endl;
+            std::cout << "Назва відділу: " << dept.division << std::endl;
+            std::cout << "Чисельність персоналу: " << dept.staff << std::endl;
+            std::cout << "Кількість комп'ютерів: " << dept.computers << std::endl;
+            std::cout << "--------------------------" << std::endl;
+        }
+    }
+
+    return 0;
+}
