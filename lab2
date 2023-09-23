@@ -1,0 +1,37 @@
+#include <iostream>
+
+using namespace std;
+
+int calculateEasterDate(int year) {
+    int a = year % 19;
+    int b = year % 4;
+    int c = year % 7;
+    int d = (19 * a + 15) % 30;
+    int e = (2 * b + 4 * c + 6 * d + 6) % 7;
+    int x = d + e;
+
+    if (x < 9) {
+        // Пасха припадає на березень
+        return 22 + x;
+    } else {
+        // Пасха припадає на квітень
+        return x - 9;
+    }
+}
+
+int main() {
+    for (int year = 2022; year <= 2032; year++) {
+        int easterDay = calculateEasterDate(year);
+        int easterMonth = (easterDay <= 31) ? 3 : 4;
+        if (easterMonth == 4) {
+            easterDay -= 31; // Великодень у квітні
+        }
+
+        // Додаємо 13 для переходу на новий стиль
+        year += 13;
+
+        cout << "Рік " << year << ": " << easterDay << " квітня" << endl;
+    }
+
+    return 0;
+}
