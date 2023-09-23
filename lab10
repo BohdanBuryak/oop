@@ -1,0 +1,68 @@
+#include <iostream>
+#include <cmath>
+
+int main() {
+    int n;
+
+    // Введення розміру масиву
+    std::cout << "Введіть розмір масиву: ";
+    std::cin >> n;
+
+    if (n <= 0) {
+        std::cout << "Розмір масиву має бути додатнім числом." << std::endl;
+        return 1;
+    }
+
+    int* arr = new int[n];
+
+    // Введення елементів масиву
+    std::cout << "Введіть елементи масиву:" << std::endl;
+    for (int i = 0; i < n; ++i) {
+        std::cin >> arr[i];
+    }
+
+    // Пошук номера максимального за модулем елемента
+    int maxModIdx = 0;
+    for (int i = 1; i < n; ++i) {
+        if (std::abs(arr[i]) > std::abs(arr[maxModIdx])) {
+            maxModIdx = i;
+        }
+    }
+
+    // Знаходимо індекс першого додатного елемента
+    int firstPositiveIdx = -1;
+    for (int i = 0; i < n; ++i) {
+        if (arr[i] > 0) {
+            firstPositiveIdx = i;
+            break;
+        }
+    }
+
+    // Знаходимо суму модулів елементів, які розташовані після першого додатного
+    int sumAfterFirstPositive = 0;
+    if (firstPositiveIdx != -1) {
+        for (int i = firstPositiveIdx + 1; i < n; ++i) {
+            sumAfterFirstPositive += std::abs(arr[i]);
+        }
+    }
+
+    // Обмін елементів місцями
+    for (int i = 0; i < n - 1; i += 2) {
+        std::swap(arr[i], arr[i + 1]);
+    }
+
+    // Виведення результатів
+    std::cout << "Номер максимального за модулем елемента: " << maxModIdx << std::endl;
+    std::cout << "Сума модулів елементів, які розташовані після першого додатного: " << sumAfterFirstPositive << std::endl;
+
+    // Виведення масиву після обміну
+    std::cout << "Масив після обміну:" << std::endl;
+    for (int i = 0; i < n; ++i) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+
+    delete[] arr;
+
+    return 0;
+}
