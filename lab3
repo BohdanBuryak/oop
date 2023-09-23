@@ -1,0 +1,29 @@
+#include <iostream>
+
+int main() {
+    const int arraySize = 5;
+    int myArray[arraySize] = {10, 10, 10, 10, 10};
+    int targetValue = 10;
+
+    int thirdOccurrence = -1; // Ініціалізуємо змінну номеру третього входження
+
+    int count = 0; // Лічильник збігів
+
+    for (int i = 0; i < arraySize; ++i) {
+        if (myArray[i] == targetValue) {
+            count++; // Збільшуємо лічильник збігів
+            if (count == 3) {
+                thirdOccurrence = i; // Якщо це третє входження, зберігаємо індекс
+                break; // Завершуємо пошук
+            }
+        }
+    }
+
+    if (thirdOccurrence != -1) {
+        std::cout << "Номер третього елемента, який дорівнює 10: " << thirdOccurrence << std::endl;
+    } else {
+        std::cout << "Третій елемент, який дорівнює 10, не знайдено." << std::endl;
+    }
+
+    return 0;
+}
