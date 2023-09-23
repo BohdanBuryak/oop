@@ -1,0 +1,16 @@
+#include <iostream>
+#include <algorithm> // Для функції std::max
+
+int main() {
+    int a, b;
+    std::cout << "Введіть значення a: ";
+    std::cin >> a;
+    std::cout << "Введіть значення b: ";
+    std::cin >> b;
+
+    int z = std::max(a * a, b * a) + std::max(b * b, 2 * a);
+
+    std::cout << "Значення z = max(a^2, b * a) + max(b^2, 2 * a) дорівнює: " << z << std::endl;
+
+    return 0;
+}
