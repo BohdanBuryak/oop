@@ -11,10 +11,10 @@ int calculateEasterDate(int year) {
     int x = d + e;
 
     if (x < 9) {
-        // Пасха припадає на березень
+      
         return 22 + x;
     } else {
-        // Пасха припадає на квітень
+        
         return x - 9;
     }
 }
@@ -27,7 +27,7 @@ int main() {
             easterDay -= 31; // Великодень у квітні
         }
 
-        // Додаємо 13 для переходу на новий стиль
+        
         year += 13;
 
         cout << "Рік " << year << ": " << easterDay << " квітня" << endl;
