@@ -1,0 +1,30 @@
+#include <iostream>
+
+int main() {
+    const int size = 7;
+    int matrix[size][size];
+    
+  
+    std::cout << "Введіть елементи матриці " << size << "x" << size << ":\n";
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            std::cin >> matrix[i][j];
+        }
+    }
+
+   
+    int sum = 0;
+    for (int i = 0; i < size; i++) {
+        if (matrix[i][i] % 2 == 0) {
+            sum += matrix[i][i]; 
+        }
+        if (matrix[i][size - 1 - i] % 2 == 0) {
+            sum += matrix[i][size - 1 - i]; 
+        }
+    }
+
+    
+    std::cout << "Сума парних елементів головної і допоміжної діагоналі: " << sum << std::endl;
+
+    return 0;
+}
