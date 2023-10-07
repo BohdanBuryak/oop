@@ -5,16 +5,15 @@ int main() {
     int myArray[arraySize] = {10, 10, 10, 10, 10};
     int targetValue = 10;
 
-    int thirdOccurrence = -1; // Ініціалізуємо змінну номеру третього входження
-
-    int count = 0; // Лічильник збігів
+    int thirdOccurrence = -1;
+    int count = 0;
 
     for (int i = 0; i < arraySize; ++i) {
         if (myArray[i] == targetValue) {
-            count++; // Збільшуємо лічильник збігів
+            count++; 
             if (count == 3) {
-                thirdOccurrence = i; // Якщо це третє входження, зберігаємо індекс
-                break; // Завершуємо пошук
+                thirdOccurrence = i; 
+                break; 
             }
         }
     }
