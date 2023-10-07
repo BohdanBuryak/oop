@@ -1,7 +1,5 @@
 #include <iostream>
-
 using namespace std;
-
 int calculateEasterDate(int year) {
     int a = year % 19;
     int b = year % 4;
@@ -11,10 +9,8 @@ int calculateEasterDate(int year) {
     int x = d + e;
 
     if (x < 9) {
-      
         return 22 + x;
-    } else {
-        
+    } else { 
         return x - 9;
     }
 }
@@ -26,12 +22,7 @@ int main() {
         if (easterMonth == 4) {
             easterDay -= 31; 
         }
-
-        
-        year += 13;
-
         cout << "Рік " << year << ": " << easterDay << " квітня" << endl;
     }
-
     return 0;
 }
