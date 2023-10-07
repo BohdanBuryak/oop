@@ -24,7 +24,7 @@ int main() {
         int easterDay = calculateEasterDate(year);
         int easterMonth = (easterDay <= 31) ? 3 : 4;
         if (easterMonth == 4) {
-            easterDay -= 31; // Великодень у квітні
+            easterDay -= 31; 
         }
 
         
