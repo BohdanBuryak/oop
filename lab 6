@@ -2,8 +2,6 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-
-
 struct Department {
     std::string name;
     std::string division;
@@ -11,11 +9,9 @@ struct Department {
     int computers;
 };
 
-
 bool compareByDepartmentName(const Department& a, const Department& b) {
     return a.name < b.name;
 }
-
 
 bool compareByComputerCount(const Department& a, const Department& b) {
     return a.computers < b.computers;
