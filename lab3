@@ -2,8 +2,8 @@
 
 int main() {
     const int arraySize = 5;
-    int myArray[arraySize] = {2, 6, 7, 1, 8};
-    int targetValue = 3;
+    int myArray[arraySize] = {4, 2, 2, 1, 0};
+    int targetValue = 2;
 
     int thirdOccurrence = -1;
     int count = 0;
@@ -11,7 +11,7 @@ int main() {
     for (int i = 0; i < arraySize; i++) {
         if (myArray[i] == targetValue) {
             count++; 
-            if (count == 3) {
+            if (count == 2) {
                 thirdOccurrence = i; 
                 break; 
             }
@@ -19,9 +19,9 @@ int main() {
     }
 
     if (thirdOccurrence != -1) {
-        std::cout << "Номер третього елемента, який дорівнює 10: " << thirdOccurrence << std::endl;
+        std::cout << "Номер другого елемента: " << thirdOccurrence << std::endl;
     } else {
-        std::cout << "Третій елемент, який дорівнює 10, не знайдено." << std::endl;
+        std::cout << "Другий елемент, не знайдено." << std::endl;
     }
 
     return 0;
