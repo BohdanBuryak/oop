@@ -1,5 +1,5 @@
 #include <iostream>
-#include <algorithm> // Для функції std::max
+#include <algorithm> 
 
 int main() {
     int a, b;
