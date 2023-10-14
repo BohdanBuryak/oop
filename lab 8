@@ -55,7 +55,7 @@ public:
         birthDate = *localtime(&now);
         birthDate.tm_year = birthYear - 1900;
 
-        double secondsInYear = 365.25 * 24 * 60 * 60; // Приблизна кількість секунд у році
+        double secondsInYear = 365.25 * 24 * 60 * 60; 
         double ageInSeconds = difftime(now, mktime(&birthDate));
         return static_cast<int>(ageInSeconds / secondsInYear);
     }
