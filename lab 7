@@ -1,0 +1,120 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+struct Department {
+    std::string name;
+    std::string division;
+    int staffCount;
+    int computerCount;
+};
+
+bool sortByDivision(const Department& a, const Department& b) {
+    return a.division < b.division;
+}
+
+bool sortByComputerCount(const Department& a, const Department& b) {
+    return a.computerCount < b.computerCount;
+}
+
+void saveDataToFile(const std::vector<Department>& departments, const std::string& filename) {
+    std::ofstream file(filename);
+    if (file.is_open()) {
+        for (const Department& department : departments) {
+            file << department.division << " " << department.name << " " << department.staffCount << " " << department.computerCount << "\n";
+        }
+        file.close();
+        std::cout << "Дані збережено у файл " << filename << std::endl;
+    } else {
+        std::cerr << "Не вдалося відкрити файл для збереження даних." << std::endl;
+    }
+}
+
+void loadDataFromFile(std::vector<Department>& departments, const std::string& filename) {
+    std::ifstream file(filename);
+    if (file.is_open()) {
+        departments.clear();
+        Department department;
+        while (file >> department.division >> department.name >> department.staffCount >> department.computerCount) {
+            departments.push_back(department);
+        }
+        file.close();
+        std::cout << "Дані завантажено з файлу " << filename << std::endl;
+    } else {
+        std::cerr << "Не вдалося відкрити файл для завантаження даних." << std::endl;
+    }
+}
+
+int main() {
+    std::vector<Department> departments;
+    int n;
+
+    std::cout << "Виберіть опцію:\n";
+    std::cout << "1. Завантажити дані з файлу\n";
+    std::cout << "2. Ввести дані вручну\n";
+    int option;
+    std::cin >> option;
+
+    if (option == 1) {
+        std::string filename;
+        std::cout << "Введіть ім'я файлу для завантаження даних: ";
+        std::cin >> filename;
+        loadDataFromFile(departments, filename);
+    } else if (option == 2) {
+        std::cout << "Введіть кількість підрозділів: ";
+        std::cin >> n;
+
+        for (int i = 0; i < n; i++) {
+            Department department;
+            std::cout << "Підрозділ " << i + 1 << ":\n";
+            std::cout << "Назва підрозділу: ";
+            std::cin >> department.division;
+            std::cout << "Назва відділу: ";
+            std::cin >> department.name;
+            std::cout << "Чисельність персоналу: ";
+            std::cin >> department.staffCount;
+            std::cout << "Кількість комп'ютерів: ";
+            std::cin >> department.computerCount;
+
+            departments.push_back(department);
+        }
+    } else {
+        std::cerr << "Невірний вибір опції." << std::endl;
+        return 1;
+    }
+
+ 
+    std::sort(departments.begin(), departments.end(), sortByDivision); 
+    
+    std::sort(departments.begin(), departments.end(), sortByComputerCount); 
+    
+    std::cout << "\nІнформація про всі підрозділи:\n";
+    for (const Department& department : departments) {
+        std::cout << "Назва підрозділу: " << department.division << std::endl;
+        std::cout << "Назва відділу: " << department.name << std::endl;
+        std::cout << "Чисельність персоналу: " << department.staffCount << std::endl;
+        std::cout << "Кількість комп'ютерів: " << department.computerCount << std::endl;
+        std::cout << "---------------------------\n";
+    }
+
+    std::cout << "\nПідрозділи, в яких кількість комп'ютерів менша за кількість працівників удвічі і більше разів:\n";
+    for (const Department& department : departments) {
+        if (department.computerCount < 2 * department.staffCount) {
+            std::cout << "Назва підрозділу: " << department.division << std::endl;
+            std::cout << "Назва відділу: " << department.name << std::endl;
+            std::cout << "Чисельність персоналу: " << department.staffCount << std::endl;
+            std::cout << "Кількість комп'ютерів: " << department.computerCount << std::endl;
+            std::cout << "---------------------------\n";
+        }
+    }
+
+   
+    std::string saveFilename;
+    std::cout << "Введіть ім'я файлу для збереження даних: ";
+    std::cin >> saveFilename;
+    saveDataToFile(departments, saveFilename);
+
+    return 0;
+}
