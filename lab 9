@@ -1,0 +1,140 @@
+#include <iostream>
+#include <string>
+#include <ctime>
+
+class Employee {
+private:
+    std::string lastName;
+    double salary;
+    int birthYear;
+
+public:
+    // Конструктор за замовчуванням
+    Employee() : lastName(""), salary(0.0), birthYear(0) {}
+
+    // Перевантажений конструктор з параметрами
+    Employee(const std::string& name, double s, int year)
+        : lastName(name), salary(s), birthYear(year) {}
+
+    // Деструктор
+    ~Employee() {
+        std::cout << "Об'єкт працівника " << lastName << " знищено." << std::endl;
+    }
+
+    // Set-методи
+    void setLastName(const std::string& name) {
+        lastName = name;
+    }
+
+    void setSalary(double s) {
+        salary = s;
+    }
+
+    void setBirthYear(int year) {
+        birthYear = year;
+    }
+
+    // Get-методи
+    std::string getLastName() const {
+        return lastName;
+    }
+
+    double getSalary() const {
+        return salary;
+    }
+
+    int getBirthYear() const {
+        return birthYear;
+    }
+
+    // Метод для обчислення віку працівника
+    int calculateAge() const {
+        time_t now;
+        struct tm birthDate;
+        time(&now);
+        birthDate = *localtime(&now);
+        birthDate.tm_year = birthYear - 1900;
+
+        double secondsInYear = 365.25 * 24 * 60 * 60; // Приблизна кількість секунд у році
+        double ageInSeconds = difftime(now, mktime(&birthDate));
+        return static_cast<int>(ageInSeconds / secondsInYear);
+    }
+
+    // Метод для обчислення кількості календарних днів до виповнення 50 років
+    int daysUntil50() const {
+        int age = calculateAge();
+        int daysInYear = 365;
+        int daysTo50 = 50 * daysInYear - age * daysInYear;
+        return daysTo50;
+    }
+
+    // Перевантаження бінарного оператора +
+    Employee operator+(double increase) {
+        Employee result = *this;
+        result.salary += increase;
+        return result;
+    }
+
+    // Перевантаження бінарного оператора -
+    Employee operator-(double decrease) {
+        Employee result = *this;
+        result.salary -= decrease;
+        return result;
+    }
+
+    // Перевантаження унарного оператора ++ (постфіксний)
+    Employee operator++(int) {
+        Employee result = *this;
+        birthYear++;
+        return result;
+    }
+
+    // Перевантаження унарного оператора -- (постфіксний)
+    Employee operator--(int) {
+        Employee result = *this;
+        birthYear--;
+        return result;
+    }
+
+    // Метод для виведення інформації про об'єкт
+    void printInfo() const {
+        std::cout << "Прізвище: " << lastName << std::endl;
+        std::cout << "Оклад: " << salary << std::endl;
+        std::cout << "Рік народження: " << birthYear << std::endl;
+        std::cout << "Вік: " << calculateAge() << " років" << std::endl;
+        std::cout << "Кількість днів до виповнення 50 років: " << daysUntil50() << " днів" << std::endl;
+    }
+};
+
+int main() {
+    Employee employee("Іванов", 50000.0, 1980);
+    employee.printInfo();
+
+    std::cout << "-----------------------" << std::endl;
+    
+    // Перевантажені бінарні оператори +
+    Employee increasedSalary = employee + 5000.0;
+    increasedSalary.printInfo();
+
+    std::cout << "-----------------------" << std::endl;
+
+    // Перевантажені бінарні оператори -
+    Employee decreasedSalary = employee - 3000.0;
+    decreasedSalary.printInfo();
+
+    std::cout << "-----------------------" << std::endl;
+
+    // Перевантажені унарні оператори ++
+    Employee agedEmployee = employee++;
+    employee.printInfo();
+    agedEmployee.printInfo();
+
+    std::cout << "-----------------------" << std::endl;
+
+    // Перевантажені унарні оператори --
+    Employee youngerEmployee = employee--;
+    employee.printInfo();
+    youngerEmployee.printInfo();
+
+    return 0;
+}
