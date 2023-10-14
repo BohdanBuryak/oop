@@ -9,19 +9,19 @@ private:
     int birthYear;
 
 public:
-    // Конструктор за замовчуванням
+ 
     Employee() : lastName(""), salary(0.0), birthYear(0) {}
 
-    // Перевантажений конструктор з параметрами
+
     Employee(const std::string& name, double s, int year)
         : lastName(name), salary(s), birthYear(year) {}
 
-    // Деструктор
+  
     ~Employee() {
         std::cout << "Об'єкт працівника " << lastName << " знищено." << std::endl;
     }
 
-    // Set-методи
+    
     void setLastName(const std::string& name) {
         lastName = name;
     }
@@ -34,7 +34,7 @@ public:
         birthYear = year;
     }
 
-    // Get-методи
+  
     std::string getLastName() const {
         return lastName;
     }
@@ -47,7 +47,7 @@ public:
         return birthYear;
     }
 
-    // Метод для обчислення віку працівника
+   
     int calculateAge() const {
         time_t now;
         struct tm birthDate;
@@ -60,7 +60,7 @@ public:
         return static_cast<int>(ageInSeconds / secondsInYear);
     }
 
-    // Метод для обчислення кількості календарних днів до виповнення 50 років
+    
     int daysUntil50() const {
         int age = calculateAge();
         int daysInYear = 365;
@@ -68,7 +68,7 @@ public:
         return daysTo50;
     }
 
-    // Метод для виведення інформації про об'єкт
+   
     void printInfo() const {
         std::cout << "Прізвище: " << lastName << std::endl;
         std::cout << "Оклад: " << salary << std::endl;
