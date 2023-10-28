@@ -37,7 +37,7 @@ int main() {
         }
     }
 
-    // Знаходимо суму модулів елементів, які розташовані після першого додатного
+    
     int sumAfterFirstPositive = 0;
     if (firstPositiveIdx != -1) {
         for (int i = firstPositiveIdx + 1; i < n; i++) {
@@ -45,16 +45,16 @@ int main() {
         }
     }
 
-    // Обмін елементів місцями
+    
     for (int i = 0; i < n - 1; i += 2) {
         std::swap(arr[i], arr[i + 1]);
     }
 
-    // Виведення результатів
+    
     std::cout << "Номер максимального за модулем елемента: " << maxModIdx << std::endl;
     std::cout << "Сума модулів елементів, які розташовані після першого додатного: " << sumAfterFirstPositive << std::endl;
 
-    // Виведення масиву після обміну
+   
     std::cout << "Масив після обміну:" << std::endl;
     for (int i = 0; i < n; i++) {
         std::cout << arr[i] << " ";
