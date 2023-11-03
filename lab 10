@@ -1,0 +1,69 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+class Employee {
+protected:
+    std::string name;
+    double salary;
+    int birthYear;
+
+public:
+    Employee(const std::string &name, double salary, int birthYear)
+        : name(name), salary(salary), birthYear(birthYear) {}
+
+    void displayInfo() const {
+        std::cout << "Name: " << name << ", Salary: " << salary << ", Birth Year: " << birthYear << std::endl;
+    }
+
+    virtual void increaseSalary(double percentIncrease) {
+        salary += salary * percentIncrease / 100;
+    }
+};
+
+class CompanyEmployee : public Employee {
+private:
+    std::string position;
+
+public:
+    CompanyEmployee(const std::string &name, double salary, int birthYear, const std::string &position)
+        : Employee(name, salary, birthYear), position(position) {}
+
+    void displayInfo() const {
+        std::cout << "Name: " << name << ", Salary: " << salary << ", Birth Year: " << birthYear << ", Position: " << position << std::endl;
+    }
+
+    void increaseSalary(double percentIncrease) override {
+        if (position == "Programmer") {
+            salary += salary * percentIncrease / 100;
+        }
+    }
+};
+
+int main() {
+    std::vector<Employee*> employees;
+  
+    employees.push_back(new Employee("John", 30000, 1990));
+    employees.push_back(new CompanyEmployee("Alice", 40000, 1985, "Manager"));
+    employees.push_back(new CompanyEmployee("Bob", 35000, 1988, "Programmer"));
+    employees.push_back(new CompanyEmployee("Eva", 32000, 1992, "Programmer"));
+    
+    std::cout << "Before Salary Increase:" << std::endl;
+    for (const auto& employee : employees) {
+        employee->displayInfo();
+    }
+    
+    for (auto employee : employees) {
+        employee->increaseSalary(20);
+    }
+
+    std::cout << "\nAfter Salary Increase:" << std::endl;
+    for (const auto& employee : employees) {
+        employee->displayInfo();
+    }
+
+    for (auto employee : employees) {
+        delete employee;
+    }
+    return 0;
+}
