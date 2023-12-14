@@ -1,0 +1,76 @@
+#include <iostream>
+#include <iomanip>
+
+class Date {
+private:
+    int year;
+    int month;
+    int day;
+
+public:
+    // Конструктор класу
+    Date(int y, int m, int d) : year(y), month(m), day(d) {}
+
+    // Метод для виведення дати у форматі dd/mm/yy
+    void printDate() const {
+        std::cout << std::setw(2) << std::setfill('0') << day << '/'
+                  << std::setw(2) << std::setfill('0') << month << '/'
+                  << std::setw(2) << std::setfill('0') << (year % 100) << std::endl;
+    }
+
+    // Метод для декрементації дати на один день
+    void decrementDay() {
+        if (day > 1) {
+            // Якщо день не перший в місяці, просто зменшуємо його на 1
+            day--;
+        } else {
+            if (month > 1) {
+                // Якщо місяць не перший, переходимо до попереднього місяця
+                month--;
+                // Знаходимо останній день попереднього місяця
+                int lastDayOfPreviousMonth = getLastDayOfMonth(year, month);
+                day = lastDayOfPreviousMonth;
+            } else {
+                // Якщо місяць перший, переходимо до попереднього року та грудня
+                year--;
+                month = 12;
+                // Знаходимо останній день грудня попереднього року
+                day = getLastDayOfMonth(year, month);
+            }
+        }
+    }
+
+private:
+    // Допоміжна функція для знаходження останнього дня місяця
+    int getLastDayOfMonth(int y, int m) const {
+        static const int daysInMonth[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        int lastDay = daysInMonth[m];
+
+        // Враховуємо високосні роки
+        if (m == 2 && isLeapYear(y)) {
+            lastDay = 29;
+        }
+
+        return lastDay;
+    }
+
+    // Допоміжна функція для визначення високосного року
+    bool isLeapYear(int y) const {
+        return (y % 4 == 0 && y % 100 != 0) || (y % 400 == 0);
+    }
+};
+
+int main() {
+    // Приклад використання класу Date
+    Date currentDate(2023, 12, 14);
+
+    std::cout << "Current date: ";
+    currentDate.printDate();
+
+    currentDate.decrementDay();
+
+    std::cout << "Date after decrementing by one day: ";
+    currentDate.printDate();
+
+    return 0;
+}
