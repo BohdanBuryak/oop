@@ -1,0 +1,63 @@
+#include <iostream>
+
+class Vector3D {
+private:
+    double x;
+    double y;
+    double z;
+
+public:
+    // Конструктор за замовчуванням
+    Vector3D() : x(0.0), y(0.0), z(0.0) {}
+
+    // Конструктор з параметрами
+    Vector3D(double xVal, double yVal, double zVal) : x(xVal), y(yVal), z(zVal) {}
+
+    // Конструктор копіювання
+    Vector3D(const Vector3D& other) : x(other.x), y(other.y), z(other.z) {}
+
+    // Оператор додавання векторів
+    Vector3D operator+(const Vector3D& other) const {
+        return Vector3D(x + other.x, y + other.y, z + other.z);
+    }
+
+    // Оператор векторного добутку
+    Vector3D operator*(const Vector3D& other) const {
+        return Vector3D(y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x);
+    }
+
+    // Функція для виведення вектора
+    void display() const {
+        std::cout << "(" << x << ", " << y << ", " << z << ")";
+    }
+};
+
+int main() {
+    // Приклад використання класу Vector3D
+    Vector3D vector1(1.0, 2.0, 3.0);
+    Vector3D vector2(4.0, 5.0, 6.0);
+
+    // Додавання векторів
+    Vector3D sum = vector1 + vector2;
+
+    std::cout << "Vector1: ";
+    vector1.display();
+    std::cout << std::endl;
+
+    std::cout << "Vector2: ";
+    vector2.display();
+    std::cout << std::endl;
+
+    std::cout << "Sum: ";
+    sum.display();
+    std::cout << std::endl;
+
+    // Векторний добуток
+    Vector3D crossProduct = vector1 * vector2;
+
+    std::cout << "Cross Product: ";
+    crossProduct.display();
+    std::cout << std::endl;
+
+    return 0;
+}
