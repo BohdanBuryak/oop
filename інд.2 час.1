@@ -1,0 +1,42 @@
+#include <iostream>
+#include <cmath>
+
+// Функція для обчислення 10^n
+double powerOf10(int n) {
+    double result = 1.0;
+    for (int i = 0; i < n; ++i) {
+        result *= 10.0;
+    }
+    return result;
+}
+
+// Функція для округлення числа num до n знаків після коми
+double round_value(double num, int n) {
+    double multiplier = powerOf10(n);
+    return round(num * multiplier) / multiplier;
+}
+
+// Перевантажена функція для округлення числа num до точності precision
+double round_value(double num, double precision) {
+    if (precision <= 0.0) {
+        std::cerr << "Error: Precision should be greater than 0." << std::endl;
+        return num;
+    }
+
+    int n = static_cast<int>(-std::log10(precision));
+    return round_value(num, n);
+}
+
+int main() {
+    double number = 123.456789;
+    
+    // Округлення до 2 знаків після коми
+    double roundedValue1 = round_value(number, 2);
+    std::cout << "Rounded value (2 decimal places): " << roundedValue1 << std::endl;
+
+    // Округлення до 0.01
+    double roundedValue2 = round_value(number, 0.01);
+    std::cout << "Rounded value (0.01 precision): " << roundedValue2 << std::endl;
+
+    return 0;
+}
